@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/ethzeljagd/static/css/main.ab7136cd.chunk.css",
+    "main.css": "/ethzeljagd/static/css/main.a617e044.chunk.css",
     "main.js": "/ethzeljagd/static/js/main.3e316588.chunk.js",
     "main.js.map": "/ethzeljagd/static/js/main.3e316588.chunk.js.map",
     "runtime-main.js": "/ethzeljagd/static/js/runtime-main.3656d7c5.js",
@@ -10,14 +10,14 @@
     "static/js/3.a5654731.chunk.js": "/ethzeljagd/static/js/3.a5654731.chunk.js",
     "static/js/3.a5654731.chunk.js.map": "/ethzeljagd/static/js/3.a5654731.chunk.js.map",
     "index.html": "/ethzeljagd/index.html",
-    "static/css/main.ab7136cd.chunk.css.map": "/ethzeljagd/static/css/main.ab7136cd.chunk.css.map",
+    "static/css/main.a617e044.chunk.css.map": "/ethzeljagd/static/css/main.a617e044.chunk.css.map",
     "static/js/2.96a9655f.chunk.js.LICENSE.txt": "/ethzeljagd/static/js/2.96a9655f.chunk.js.LICENSE.txt",
     "static/media/logo.6ce24c58.svg": "/ethzeljagd/static/media/logo.6ce24c58.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.3656d7c5.js",
     "static/js/2.96a9655f.chunk.js",
-    "static/css/main.ab7136cd.chunk.css",
+    "static/css/main.a617e044.chunk.css",
     "static/js/main.3e316588.chunk.js"
   ]
 }
