@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import Game from './Game';
 import MetaMaskConnector from './MetaMaskConnector';
 
 // TODO: change to real addr
@@ -15,7 +16,7 @@ function App() {
     <div className="App">
       {address
        ? (isFabian
-          ? `Hallo, fabians40.eth (get it?)`
+          ? <Game/>
           : `Nicht Fabian. Hau ab.`)
        : <MetaMaskConnector onGetAddress={setAddress} />
       }
