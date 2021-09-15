@@ -1,4 +1,5 @@
 import React from 'react'
+import OpenSeaAsset, { rinkeby } from './OpenSeaAsset';
 import { Fade } from "react-awesome-reveal";
 
 export default function Game() {
@@ -9,7 +10,11 @@ export default function Game() {
         <p>Hallo, fabians40.eth (get it?)</p>
       </Fade>
       <Fade delay={delays[0] + delays[1]}>
-        <p>asset goes here</p>
+        <OpenSeaAsset
+          tokenAddress="0x16baf0de678e52367adc69fd067e5edd1d33e3bf"
+          tokenId="6542"
+          network={rinkeby}
+        />
       </Fade>
     </>
   )
