@@ -11,8 +11,8 @@ export default function Game() {
       </Fade>
       <Fade delay={delays[0] + delays[1]}>
         <OpenSeaAsset
-          tokenAddress="0x16baf0de678e52367adc69fd067e5edd1d33e3bf"
-          tokenId="6542"
+          tokenAddress="0x88b48f654c30e99bc2e4a1559b4dcf1ad93fa656"
+          tokenId="102743975208247464892357897570123995437330798510544416212605668025911373463553"
           network={rinkeby}
         />
       </Fade>
