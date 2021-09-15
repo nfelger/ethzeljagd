@@ -27,7 +27,7 @@ export default function OpenSeaAsset({ tokenAddress, tokenId, network}) {
   return (
     <div>
       <p>{asset.name}</p>
-      <img src={asset.imagePreviewUrl} />
+      <img src={asset.imagePreviewUrl} alt={`OpenSea asset "${asset.name}"`} />
       <p>{asset.description}</p>
       {/* TODO: traits? */}
     </div>
