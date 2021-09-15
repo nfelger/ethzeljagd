@@ -4,7 +4,7 @@ import Game from "./Game";
 import MetaMaskConnector from "./MetaMaskConnector";
 
 // TODO: change to real addr
-const fabiansEth = "0xE3270777E2943b435C3d0C2A6B719564Bfd65026".toLowerCase();
+const fabiansEth = "0x80eA825A030bcAbc7f7c4571f4ed1da2FB49d8bf".toLowerCase();
 
 function App() {
   const [address, setAddress] = useState("");
