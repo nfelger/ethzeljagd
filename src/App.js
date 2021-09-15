@@ -15,7 +15,7 @@ function App() {
     <div className="App">
       {address
        ? (isFabian
-          ? `Willkommen, fabians.eth`
+          ? `Hallo, fabians40.eth (get it?)`
           : `Nicht Fabian. Hau ab.`)
        : <MetaMaskConnector onGetAddress={setAddress} />
       }
