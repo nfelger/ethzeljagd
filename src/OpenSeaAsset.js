@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { OpenSeaPort, Network } from 'opensea-js';
+import React, { useEffect, useState } from "react";
+import { OpenSeaPort, Network } from "opensea-js";
 
 const provider = window.ethereum;
 export const rinkeby = new OpenSeaPort(provider, {
-  networkName: Network.Rinkeby
-})
+  networkName: Network.Rinkeby,
+});
 export const mainnet = new OpenSeaPort(provider, {
-  networkName: Network.Main
-})
+  networkName: Network.Main,
+});
 
-
-export default function OpenSeaAsset({ tokenAddress, tokenId, network}) {
+export default function OpenSeaAsset({ tokenAddress, tokenId, network }) {
   const [asset, setAsset] = useState({});
 
   useEffect(() => {
@@ -18,10 +17,10 @@ export default function OpenSeaAsset({ tokenAddress, tokenId, network}) {
       const asset = await network.api.getAsset({
         tokenAddress: tokenAddress,
         tokenId: tokenId,
-      })
-      setAsset(asset)
+      });
+      setAsset(asset);
     }
-    getAsset()
+    getAsset();
   }, [tokenAddress, tokenId, network]);
 
   return (
@@ -31,5 +30,5 @@ export default function OpenSeaAsset({ tokenAddress, tokenId, network}) {
       <p>{asset.description}</p>
       {/* TODO: traits? */}
     </div>
-  )
+  );
 }

@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import './App.css';
-import Game from './Game';
-import MetaMaskConnector from './MetaMaskConnector';
+import React, { useState } from "react";
+import "./App.css";
+import Game from "./Game";
+import MetaMaskConnector from "./MetaMaskConnector";
 
 // TODO: change to real addr
 const fabiansEth = "0xE3270777E2943b435C3d0C2A6B719564Bfd65026".toLowerCase();
-
 
 function App() {
   const [address, setAddress] = useState("");
@@ -14,12 +13,15 @@ function App() {
 
   return (
     <div className="App">
-      {address
-       ? (isFabian
-          ? <Game/>
-          : `Nicht Fabian. Hau ab.`)
-       : <MetaMaskConnector onGetAddress={setAddress} />
-      }
+      {address ? (
+        isFabian ? (
+          <Game />
+        ) : (
+          `Nicht Fabian. Hau ab.`
+        )
+      ) : (
+        <MetaMaskConnector onGetAddress={setAddress} />
+      )}
     </div>
   );
 }

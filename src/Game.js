@@ -1,9 +1,9 @@
-import React from 'react'
-import OpenSeaAsset, { rinkeby } from './OpenSeaAsset';
+import React from "react";
+import OpenSeaAsset, { rinkeby } from "./OpenSeaAsset";
 import { Fade } from "react-awesome-reveal";
 
 export default function Game() {
-  const delays = [500, 1500]
+  const delays = [500, 1500];
   return (
     <>
       <Fade delay={delays[0]}>
@@ -17,5 +17,5 @@ export default function Game() {
         />
       </Fade>
     </>
-  )
+  );
 }
