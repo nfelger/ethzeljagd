@@ -9,8 +9,9 @@ export const mainnet = new OpenSeaPort(provider, {
   networkName: Network.Main,
 });
 
-export default function OpenSeaAsset({ tokenAddress, tokenId, network }) {
+export default function OpenSeaAsset({ tokenAddress, tokenId, network, secretCode }) {
   const [asset, setAsset] = useState({});
+  const [showCodePrompt, setShowCodePrompt] = useState(false);
 
   useEffect(() => {
     async function getAsset() {
@@ -23,12 +24,40 @@ export default function OpenSeaAsset({ tokenAddress, tokenId, network }) {
     getAsset();
   }, [tokenAddress, tokenId, network]);
 
+  function handleClick() {
+    setShowCodePrompt(true)
+  }
+
+  async function handleCode(e) {
+    e.preventDefault()
+    // TODO: add number-crunching animation
+    const enteredCode = e.target.code.value;
+    if (enteredCode === secretCode) {
+      // TODO: implement contract to xfer asset
+    } else {
+      // TODO: show error message
+    }
+    setShowCodePrompt(false)
+  }
+
   return (
-    <div>
-      <p>{asset.name}</p>
-      <img src={asset.imagePreviewUrl} alt={`OpenSea asset "${asset.name}"`} />
-      <p>{asset.description}</p>
-      {/* TODO: traits? */}
-    </div>
+    <>
+      <button href="#" onClick={handleClick}>
+        <h1>{asset.name}</h1>
+        <img
+          src={asset.imagePreviewUrl}
+          alt={`OpenSea asset "${asset.name}"`}
+        />
+        <p>{asset.description}</p>
+        {/* TODO: traits? */}
+        {/* TODO: Owner: randomId | "fabians.eth" */}
+      </button>
+      {showCodePrompt && (
+        <form onSubmit={handleCode}>
+          <input type="text" name="code" />
+          <button type="submit">Los</button>
+        </form>
+      )}
+    </>
   );
 }
