@@ -8,12 +8,15 @@ export const rinkeby = new OpenSeaPort(provider, {
   networkName: Network.Rinkeby,
 });
 const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
-web3.eth.defaultChain = 'rinkeby';
+web3.eth.defaultChain = "rinkeby";
 
-
+// prettier-ignore
 const claimAssetABI = [{"inputs":[{"internalType":"uint256","name":"itemId","type":"uint256"},{"internalType":"string","name":"secret","type":"string"}],"name":"claim","outputs":[],"stateMutability":"nonpayable","type":"function"}];
 const claimAssetAddress = "0x31D3032911888f34506a733Cbe1F2107bDa9A7C4";
-const claimAssetContract = new web3.eth.Contract(claimAssetABI, claimAssetAddress);
+const claimAssetContract = new web3.eth.Contract(
+  claimAssetABI,
+  claimAssetAddress
+);
 
 export default function OpenSeaAsset({ tokenAddress, tokenId, network }) {
   const [asset, setAsset] = useState({});
@@ -32,24 +35,24 @@ export default function OpenSeaAsset({ tokenAddress, tokenId, network }) {
   }, [tokenAddress, tokenId, network]);
 
   function handleClick() {
-    setShowCodePrompt(true)
+    setShowCodePrompt(true);
   }
 
   async function handleCode(e) {
-    e.preventDefault()
+    e.preventDefault();
     const secretCode = e.target.code.value;
     // TODO: add number-crunching animation / spinner / message
     claimAssetContract.methods
       .claim(tokenId, secretCode)
-      .send({from: fabiansEth})
-      .on('receipt', function(receipt) {
+      .send({ from: fabiansEth })
+      .on("receipt", function (receipt) {
         // TODO: show success animation?
         console.log(receipt);
       })
-      .on('error', console.error) // TODO: show error message
+      .on("error", console.error); // TODO: show error message
 
-      setShowCodePrompt(false);
-    }
+    setShowCodePrompt(false);
+  }
 
   return (
     <>
