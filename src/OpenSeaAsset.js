@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from "react";
+import Web3 from "web3";
 import { OpenSeaPort, Network } from "opensea-js";
+import { fabiansEth } from "./App";
 
 const provider = window.ethereum;
 export const rinkeby = new OpenSeaPort(provider, {
   networkName: Network.Rinkeby,
 });
-export const mainnet = new OpenSeaPort(provider, {
-  networkName: Network.Main,
-});
+const web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
+web3.eth.defaultChain = 'rinkeby';
 
-export default function OpenSeaAsset({ tokenAddress, tokenId, network, secretCode }) {
+
+const claimAssetABI = [{"inputs":[{"internalType":"uint256","name":"itemId","type":"uint256"},{"internalType":"string","name":"secret","type":"string"}],"name":"claim","outputs":[],"stateMutability":"nonpayable","type":"function"}];
+const claimAssetAddress = "0x31D3032911888f34506a733Cbe1F2107bDa9A7C4";
+const claimAssetContract = new web3.eth.Contract(claimAssetABI, claimAssetAddress);
+
+export default function OpenSeaAsset({ tokenAddress, tokenId, network }) {
   const [asset, setAsset] = useState({});
   const [showCodePrompt, setShowCodePrompt] = useState(false);
 
@@ -19,6 +25,7 @@ export default function OpenSeaAsset({ tokenAddress, tokenId, network, secretCod
         tokenAddress: tokenAddress,
         tokenId: tokenId,
       });
+      console.log(asset);
       setAsset(asset);
     }
     getAsset();
@@ -30,15 +37,19 @@ export default function OpenSeaAsset({ tokenAddress, tokenId, network, secretCod
 
   async function handleCode(e) {
     e.preventDefault()
-    // TODO: add number-crunching animation
-    const enteredCode = e.target.code.value;
-    if (enteredCode === secretCode) {
-      // TODO: implement contract to xfer asset
-    } else {
-      // TODO: show error message
+    const secretCode = e.target.code.value;
+    // TODO: add number-crunching animation / spinner / message
+    claimAssetContract.methods
+      .claim(tokenId, secretCode)
+      .send({from: fabiansEth})
+      .on('receipt', function(receipt) {
+        // TODO: show success animation?
+        console.log(receipt);
+      })
+      .on('error', console.error) // TODO: show error message
+
+      setShowCodePrompt(false);
     }
-    setShowCodePrompt(false)
-  }
 
   return (
     <>

@@ -14,7 +14,6 @@ export default function Game() {
           tokenAddress="0x88b48f654c30e99bc2e4a1559b4dcf1ad93fa656"
           tokenId="102743975208247464892357897570123995437330798510544416212605668025911373463553"
           network={rinkeby}
-          secretCode="a" // TODO: replace with real code
         />
       </Fade>
     </>
