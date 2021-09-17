@@ -1,21 +1,56 @@
-import React from "react";
-// import OpenSeaAsset, { rinkeby } from "./OpenSeaAsset";
+import React, { useState } from "react";
+import OpenSeaAsset from "./OpenSeaAsset";
+import claimAsset from "./claimAssetContract";
 
 export default function ClaimableAsset({ state, asset, onClaimed }) {
+  const [showCodePrompt, setShowCodePrompt] = useState(false);
+
+  const handleClick = () => setShowCodePrompt(true);
+
+  const handleCode = async (e) => {
+    e.preventDefault();
+    setShowCodePrompt(false);
+    const secretCode = e.target.code.value;
+    // TODO: add number-crunching animation / spinner / message
+    const receipt = await claimAsset(asset.tokenId, secretCode);
+    console.log(receipt);
+    // TODO: show success animation?
+    onClaimed();
+    // TODO: show error message in case of error
+  };
+
   switch (state) {
     case "locked":
-      return <div>an image of a lock</div>;
+      return <div className="rounded">an image of a lock</div>;
     case "claimable":
-      return <button onClick={onClaimed}>a nft card with blurring</button>;
+      return (
+        <>
+          <button onClick={handleClick}>
+            blur me
+            <OpenSeaAsset
+              tokenAddress={asset.tokenAddress}
+              tokenId={asset.tokenId}
+              onClaimed={onClaimed}
+            />
+          </button>
+
+          {showCodePrompt && (
+            <form onSubmit={handleCode}>
+              <input type="text" name="code" />
+              <button type="submit">Los</button>
+            </form>
+          )}
+        </>
+      );
     case "claimed":
-      return <div>a nft card</div>;
+      return (
+        <OpenSeaAsset
+          tokenAddress={asset.tokenAddress}
+          tokenId={asset.tokenId}
+          onClaimed={onClaimed}
+        />
+      );
     default:
       return null;
   }
 }
-
-//  <OpenSeaAsset
-// tokenAddress="0x88b48f654c30e99bc2e4a1559b4dcf1ad93fa656"
-// tokenId="102743975208247464892357897570123995437330798510544416212605668025911373463553"
-// network={rinkeby}
-// />

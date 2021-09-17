@@ -9,31 +9,27 @@ const assets = [
     tokenAddress: "0x88b48f654c30e99bc2e4a1559b4dcf1ad93fa656",
     tokenId:
       "102743975208247464892357897570123995437330798510544416212605668025911373463553",
-    hint: "30 Mark",
   },
   {
     tokenAddress: "0x88b48f654c30e99bc2e4a1559b4dcf1ad93fa656",
     tokenId:
-      "102743975208247464892357897570123995437330798510544416212605668025911373463553",
-    hint: "zweihändiger Elfen-Kampfhammer",
+      "58310386485557310259002237365246659266895050305048410171636348436913447763969",
   },
   {
     tokenAddress: "0x88b48f654c30e99bc2e4a1559b4dcf1ad93fa656",
     tokenId:
-      "102743975208247464892357897570123995437330798510544416212605668025911373463553",
-    hint: "Raidri",
+      "58310386485557310259002237365246659266895050305048410171636348438012959391745",
   },
   {
     tokenAddress: "0x88b48f654c30e99bc2e4a1559b4dcf1ad93fa656",
     tokenId:
-      "102743975208247464892357897570123995437330798510544416212605668025911373463553",
-    hint: "MASSIVE",
+      "58310386485557310259002237365246659266895050305048410171636348439112471019521",
   },
 ];
 
 const gameMachine = createMachine({
   id: "game",
-  initial: "claimFour",
+  initial: "start",
   context: {
     message:
       "Nicht so schnell! Um die Box zu öffnen, musst du diese vier Dinge besitzen…",
@@ -45,6 +41,11 @@ const gameMachine = createMachine({
     },
   },
   states: {
+    start: {
+      after: {
+        5000: "claimFour",
+      },
+    },
     claimFour: {
       on: {
         CLAIMED: {
@@ -57,6 +58,9 @@ const gameMachine = createMachine({
           }),
         },
       },
+      entry: assign({
+        message: "Finde die Person, die den Code kennt. Hint: 30 Mark",
+      }),
     },
     claimThree: {
       on: {
@@ -70,7 +74,7 @@ const gameMachine = createMachine({
           }),
         },
       },
-      entry: assign({ message: "noch 3" }),
+      entry: assign({ message: "noch 3 - zweihändiger Elfen-Kampfhammer" }),
     },
     claimTwo: {
       on: {
@@ -84,7 +88,7 @@ const gameMachine = createMachine({
           }),
         },
       },
-      entry: assign({ message: "noch 2" }),
+      entry: assign({ message: "noch 2 - Raidri" }),
     },
     claimOne: {
       on: {
@@ -98,7 +102,9 @@ const gameMachine = createMachine({
           }),
         },
       },
-      entry: assign({ message: "noch 1" }),
+      entry: assign({
+        message: "noch 1 - Eine letzte MASSIVE Herausforderung.",
+      }),
     },
     done: {
       entry: "complete",
