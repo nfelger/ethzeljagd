@@ -1,6 +1,7 @@
 import React from "react";
 import { createMachine } from "xstate";
 import { useMachine } from "@xstate/react";
+import Para from "./Para";
 
 const authMachine = createMachine({
   id: "auth",
@@ -47,17 +48,23 @@ export default function Auth({ fabiansEth, onComplete }) {
   switch (state.value) {
     case "unauthenticated":
       return (
-        <button onClick={() => connectMetaMask(handleGetAddress)}
-        className="bg-green-500 px-9 py-3 text-center font-extrabold rounded-full">
+        <button
+          onClick={() => connectMetaMask(handleGetAddress)}
+          className="bg-green-500 px-9 py-3 text-center font-extrabold rounded-full"
+        >
           Mit MetaMask verbinden
         </button>
       );
 
     case "fail":
-      return <p>Da ist was schiefgegangen.</p>;
+      return <Para>Da ist was schiefgegangen.</Para>;
 
     case "notFabian":
-      return <p>Nicht <code>fabians.eth</code>. Hau ab.</p>;
+      return (
+        <Para>
+          Nicht <code>fabians.eth</code>. Hau ab.
+        </Para>
+      );
 
     case "fabian":
     default:

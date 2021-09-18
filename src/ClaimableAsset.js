@@ -51,17 +51,29 @@ export default function ClaimableAsset({ state, asset, onClaimed }) {
               onClaimed={onClaimed}
               claimInProgress={claimInProgress}
             />
-            {showCodePrompt &&
-              <div className="absolute inset-y-1/4 mx-4 p-2 text-black text-base bg-gray-300 border-gray-500 border-2 rounded" style={{height: "fit-content"}}>
+            {showCodePrompt && (
+              <div
+                className="absolute inset-y-1/4 mx-4 p-2 text-black text-base bg-gray-300 border-gray-500 border-2 rounded"
+                style={{ height: "fit-content" }}
+              >
                 <form onSubmit={handleCode}>
                   <label htmlFor="code" className="my-1">
                     Code?
-                    <input type="text" name="code" className="w-full text-xl my-1"/>
+                    <input
+                      type="text"
+                      name="code"
+                      className="w-full text-xl my-1"
+                    />
                   </label>
-                  <button type="submit" className="border-gray-500 border-2 my-1 p-1 rounded">Los</button>
+                  <button
+                    type="submit"
+                    className="border-gray-500 border-2 my-1 p-1 rounded"
+                  >
+                    Los
+                  </button>
                 </form>
               </div>
-            }
+            )}
           </div>
         );
       } else {

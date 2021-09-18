@@ -11,7 +11,7 @@ function App() {
     <div className="flex flex-col items-center mt-6 mx-2 text-white text-3xl">
       <Game fabiansEth={fabiansEth} />
     </div>
-  )
+  );
 }
 
 export default App;

@@ -8,7 +8,7 @@ const assets = [
   {
     tokenAddress: "0x88b48f654c30e99bc2e4a1559b4dcf1ad93fa656",
     tokenId:
-    "58310386485557310259002237365246659266895050305048410171636348436913447763969",
+      "58310386485557310259002237365246659266895050305048410171636348436913447763969",
   },
   {
     tokenAddress: "0x88b48f654c30e99bc2e4a1559b4dcf1ad93fa656",
@@ -18,7 +18,7 @@ const assets = [
   {
     tokenAddress: "0x88b48f654c30e99bc2e4a1559b4dcf1ad93fa656",
     tokenId:
-    "58310386485557310259002237365246659266895050305048410171636348439112471019521",
+      "58310386485557310259002237365246659266895050305048410171636348439112471019521",
   },
   {
     tokenAddress: "0x88b48f654c30e99bc2e4a1559b4dcf1ad93fa656",
@@ -32,7 +32,7 @@ const gameMachine = createMachine({
   initial: "start",
   context: {
     message:
-      "Nicht so schnell! Um die Box zu öffnen, musst du erst vier Dinge finden…",
+      "Nicht so schnell! Um die Box zu öffnen, musst du erst vier Tokens sammeln…",
     assetStates: {
       1: "claimable",
       2: "locked",
@@ -59,7 +59,7 @@ const gameMachine = createMachine({
         },
       },
       entry: assign({
-        message: "Finde die Person, die den Code kennt. Hint: 30 Mark",
+        message: "Finde die Person, die den ersten Code kennt. Hint: 30 Mark",
       }),
     },
     claimThree: {
@@ -74,7 +74,10 @@ const gameMachine = createMachine({
           }),
         },
       },
-      entry: assign({ message: "Den nächsten Code hat der Besitzer eines zweihändigen Elfen-Kampfhammers." }),
+      entry: assign({
+        message:
+          "Den nächsten Code hat der Besitzer eines zweihändigen Elfen-Kampfhammers.",
+      }),
     },
     claimTwo: {
       on: {
@@ -108,24 +111,18 @@ const gameMachine = createMachine({
     },
     nearlyDone: {
       after: {
-        2500: 'done'
+        500: "done",
       },
       entry: assign({
         message: "Jetzt hast du alles, was du brauchst!",
       }),
     },
-    done: {
-      entry: "complete",
-    },
+    done: {},
   },
 });
 
 export default function ClaimFour({ onComplete }) {
-  const [state, send] = useMachine(gameMachine, {
-    actions: {
-      complete: onComplete,
-    },
-  });
+  const [state, send] = useMachine(gameMachine);
 
   const handleClaimed = () => send("CLAIMED");
 
@@ -143,6 +140,14 @@ export default function ClaimFour({ onComplete }) {
           </li>
         ))}
       </ul>
+      {state.value === "done" && (
+        <button
+          class="block mx-auto mt-6 bg-gray-500 hover:bg-gray-400 hover:text-black px-9 py-3 text-center rounded-full"
+          onClick={onComplete}
+        >
+          Weiter
+        </button>
+      )}
     </div>
   );
 }
