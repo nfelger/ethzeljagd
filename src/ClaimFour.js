@@ -2,18 +2,13 @@ import React from "react";
 import { createMachine, assign } from "xstate";
 import { useMachine } from "@xstate/react";
 import ClaimableAsset from "./ClaimableAsset";
+import Para from "./Para";
 
-// TODO asset ids
 const assets = [
   {
     tokenAddress: "0x88b48f654c30e99bc2e4a1559b4dcf1ad93fa656",
     tokenId:
-      "58310386485557310259002237365246659266895050305048410171636348441311494275073",
-  },
-  {
-    tokenAddress: "0x88b48f654c30e99bc2e4a1559b4dcf1ad93fa656",
-    tokenId:
-      "58310386485557310259002237365246659266895050305048410171636348436913447763969",
+    "58310386485557310259002237365246659266895050305048410171636348436913447763969",
   },
   {
     tokenAddress: "0x88b48f654c30e99bc2e4a1559b4dcf1ad93fa656",
@@ -23,7 +18,12 @@ const assets = [
   {
     tokenAddress: "0x88b48f654c30e99bc2e4a1559b4dcf1ad93fa656",
     tokenId:
-      "58310386485557310259002237365246659266895050305048410171636348439112471019521",
+    "58310386485557310259002237365246659266895050305048410171636348439112471019521",
+  },
+  {
+    tokenAddress: "0x88b48f654c30e99bc2e4a1559b4dcf1ad93fa656",
+    tokenId:
+      "58310386485557310259002237365246659266895050305048410171636348441311494275073",
   },
 ];
 
@@ -32,7 +32,7 @@ const gameMachine = createMachine({
   initial: "start",
   context: {
     message:
-      "Nicht so schnell! Um die Box zu öffnen, musst du diese vier Dinge besitzen…",
+      "Nicht so schnell! Um die Box zu öffnen, musst du erst vier Dinge finden…",
     assetStates: {
       1: "claimable",
       2: "locked",
@@ -74,7 +74,7 @@ const gameMachine = createMachine({
           }),
         },
       },
-      entry: assign({ message: "noch 3 - zweihändiger Elfen-Kampfhammer" }),
+      entry: assign({ message: "Den nächsten Code hat der Besitzer eines zweihändigen Elfen-Kampfhammers." }),
     },
     claimTwo: {
       on: {
@@ -88,12 +88,12 @@ const gameMachine = createMachine({
           }),
         },
       },
-      entry: assign({ message: "noch 2 - Raidri" }),
+      entry: assign({ message: "Raidriiiiiiiiiiiiiiii!" }),
     },
     claimOne: {
       on: {
         CLAIMED: {
-          target: "done",
+          target: "nearlyDone",
           actions: assign({
             assetStates: (context) => {
               const prevStates = context.assetStates;
@@ -103,7 +103,15 @@ const gameMachine = createMachine({
         },
       },
       entry: assign({
-        message: "noch 1 - Eine letzte MASSIVE Herausforderung.",
+        message: "Noch eine letzte MASSIVE Herausforderung…",
+      }),
+    },
+    nearlyDone: {
+      after: {
+        2500: 'done'
+      },
+      entry: assign({
+        message: "Jetzt hast du alles, was du brauchst!",
       }),
     },
     done: {
@@ -123,11 +131,10 @@ export default function ClaimFour({ onComplete }) {
 
   return (
     <div>
-      <button onClick={handleClaimed}>SKIP</button>
-      <p>{state.context.message}</p>
-      <ul className="flex flex-row gap-4">
+      <Para>{state.context.message}</Para>
+      <ul className="flex flex-row gap-4 items-stretch">
         {assets.map((asset, index) => (
-          <li key={asset.tokenId}>
+          <li key={asset.tokenId} className="flex-1">
             <ClaimableAsset
               state={state.context.assetStates[index + 1]}
               asset={asset}

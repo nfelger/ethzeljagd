@@ -47,7 +47,8 @@ export default function Auth({ fabiansEth, onComplete }) {
   switch (state.value) {
     case "unauthenticated":
       return (
-        <button onClick={() => connectMetaMask(handleGetAddress)}>
+        <button onClick={() => connectMetaMask(handleGetAddress)}
+        className="bg-green-500 px-9 py-3 text-center font-extrabold rounded-full">
           Mit MetaMask verbinden
         </button>
       );
@@ -56,7 +57,7 @@ export default function Auth({ fabiansEth, onComplete }) {
       return <p>Da ist was schiefgegangen.</p>;
 
     case "notFabian":
-      return <p>Nicht Fabian. Hau ab.</p>;
+      return <p>Nicht <code>fabians.eth</code>. Hau ab.</p>;
 
     case "fabian":
     default:

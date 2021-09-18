@@ -2,6 +2,8 @@ import React from "react";
 import { createMachine } from "xstate";
 import { useMachine } from "@xstate/react";
 import { Fade } from "react-awesome-reveal";
+import QuestionMarkBox from "./QuestionMarkBox";
+import Para from "./Para";
 
 const preludeMachine = createMachine({
   id: "prelude",
@@ -33,23 +35,23 @@ export default function Prelude({ onComplete }) {
     case "msg1":
       return (
         <Fade delay={500}>
-          <p>Hallo, fabians40.eth (get it?)</p>
+          <Para>Hallo, fabians40.eth! (get it?)</Para>
         </Fade>
       );
 
     case "msg2":
       return (
         <Fade delay={500}>
-          <p>Hier ist eine Box.</p>
+          <Para>Hier ist eine Box.</Para>
         </Fade>
       );
 
     case "msg3":
       return (
         <>
-          <p>Hier ist eine Box.</p>
+          <Para>Hier ist eine Box.</Para>
           <Fade delay={500}>
-            <p>~ placeholder fragezeichen bild ~</p>
+            <QuestionMarkBox />
           </Fade>
         </>
       );
@@ -57,15 +59,13 @@ export default function Prelude({ onComplete }) {
     case "msg4":
       return (
         <>
-          <p>Hier ist eine Box.</p>
-          <button onClick={onComplete}>
-            <p>~ placeholder fragezeichen bild ~</p>
-          </button>
+          <Para>Hier ist eine Box.</Para>
+          <div className="cursor-pointer" onClick={onComplete}><QuestionMarkBox/></div>
           <Fade delay={500}>
-            <p>
+            <Para>
               Aber was ist in der Box? Klick mal drauf, vielleicht kannst du sie
               öffnen…
-            </p>
+            </Para>
           </Fade>
         </>
       );
