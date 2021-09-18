@@ -8,7 +8,7 @@ const assets = [
   {
     tokenAddress: "0x88b48f654c30e99bc2e4a1559b4dcf1ad93fa656",
     tokenId:
-      "102743975208247464892357897570123995437330798510544416212605668025911373463553",
+      "58310386485557310259002237365246659266895050305048410171636348441311494275073",
   },
   {
     tokenAddress: "0x88b48f654c30e99bc2e4a1559b4dcf1ad93fa656",
@@ -123,11 +123,11 @@ export default function ClaimFour({ onComplete }) {
 
   return (
     <div>
-      <p onClick={() => send("CLAIMED")}>{state.context.message}</p>
+      <button onClick={handleClaimed}>SKIP</button>
+      <p>{state.context.message}</p>
       <ul className="flex flex-row gap-4">
         {assets.map((asset, index) => (
-          // TODO: set tokenid as key (once they're different)
-          <li>
+          <li key={asset.tokenId}>
             <ClaimableAsset
               state={state.context.assetStates[index + 1]}
               asset={asset}
