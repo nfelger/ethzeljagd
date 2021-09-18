@@ -14,6 +14,14 @@ export default function ClaimableAsset({ state, asset, onClaimed }) {
     e.preventDefault();
     setShowCodePrompt(false);
     const secretCode = e.target.code.value;
+
+    // Cheat.
+    if (secretCode === "iddqd") {
+      setClaimInProgress(false);
+      onClaimed();
+      return;
+    }
+
     setClaimInProgress(true);
     try {
       const receipt = await claimAsset(asset.tokenId, secretCode);
